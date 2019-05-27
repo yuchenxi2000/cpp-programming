@@ -61,6 +61,33 @@
  Greater New York 2002
  */
 
+// 作者提示：请使用long long，不然250会溢出
+
+#include <iostream>
+using namespace std;
+long long f[256][256];
+int x;
+int x_max = 0;
+int main() {
+    while (cin >> x) {
+        if (x == 0) break;
+        for (int y = x_max + 1; y <= x; ++y)
+            for (int a = y; a >= 1; --a) {
+                f[y][a] = 1;
+                if (y % 2 == 0 && 2 * a <= y) f[y][a] += 1;
+                for (int i = a; 3 * i <= y; ++i)
+                    f[y][a] += f[y - 2 * i][i];
+            }
+        
+        cout << x << ' ' << f[x][1] << endl;
+        if (x > x_max) x_max = x;
+    }
+    return 0;
+}
+
+// 以前的解答（比上面的复杂）
+
+/*
 #include <iostream>
 using namespace std;
 #define MAX 300
@@ -97,3 +124,4 @@ int main() {
     }
     return 0;
 }
+*/
